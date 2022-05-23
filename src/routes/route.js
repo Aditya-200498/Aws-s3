@@ -2,6 +2,12 @@ const express = require('express');
 const router = express.Router();
 const aws= require("aws-sdk")
 
+const BookController= require("../controller/bookController")
+
+
+router.post("/bookWithAws", BookController.createBook)
+
+
 router.get("/test-me", function (req, res) {
     res.send("My first ever api!")
 })
@@ -18,8 +24,8 @@ router.get("/test-me", function (req, res) {
 // -how to write promise:- wrap your entire code inside: "return new Promise( function(resolve, reject) { "...and when error - return reject( err )..else when all ok and you have data, return resolve (data)
 
 aws.config.update({
-    accessKeyId: "AKIAY3L35MCRVFM24Q7U",
-    secretAccessKeyId: "qGG1HE0qRixcW1T1Wg1bv+08tQrIkFVyDFqSft4J",
+    accessKeyId: "AKIAY3L35MCRUJ6WPO6J",
+    secretAccessKey: "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",
     region: "ap-south-1"
 })
 
@@ -68,6 +74,7 @@ router.post("/write-file-aws", async function(req, res){
         
     }
     catch(err){
+        console.log(err)
         res.status(500).send({msg: err})
     }
     
